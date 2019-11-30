@@ -109,8 +109,7 @@ export class CreditService {
       formData , {responseType: 'text'}
     );
   }
-  getText(tmp,templa,pdf): Observable<any> {
-    return this.http.get(baseURL + `api/ocr/${tmp}/${templa}/${pdf}`);
+  compare(filename): Observable<any> {
+    return this.http.get<any>(baseURL + `api/compare/${filename}`).pipe(map(images => images.map(image => image[1])));
   }
-
 }

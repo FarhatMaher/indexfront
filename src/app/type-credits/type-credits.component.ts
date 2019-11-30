@@ -17,6 +17,7 @@ export class TypeCreditsComponent implements OnInit {
   imgURL= new Array<any>();
   tmp; templa; pdf;
   name: String ;
+  images ;
   ngOnInit() {
  
   }
@@ -29,7 +30,7 @@ export class TypeCreditsComponent implements OnInit {
     for(let i = 0 ; i<this.fileList.length; i++) {
       let chaine:string = this.fileList[i].name;
      let result = chaine.split('.')
-      if(result[1]=='jpg' || result[1]=='png' || result[1]=='jpeg'){
+      if(result[1]=='jpg' ||result[1]=='JPG'|| result[1]=='png' || result[1]=='jpeg'){
     const reader = new FileReader();
     reader.readAsDataURL(this.fileList[i]);
     reader.onload = (_event) => { 
@@ -38,32 +39,28 @@ export class TypeCreditsComponent implements OnInit {
     }
       }
     }
-  if(this.fileList.length==3){
-    this.tmp = this.fileList[2].name
-    this.templa = this.fileList[1].name
-    this.pdf = this.fileList[0].name
-
-    for (let i=0 ; i<this.fileList.length;i++) {
-      this.creditServie.upload_file(this.fileList[i]).subscribe(
+    this.filename = this.fileList[0].name
+   
+      this.creditServie.upload_file(this.fileList[0]).subscribe(
       next => console.log(next)
   );
 
-  }
+
  
 
-}
+
    
 
   }
  onFilesChangef(event) {
     this.fileList = event.target.files;
-    //this.filename = this.fileList[0].name
+   
     console.log(this.fileList)
     let j = 0;
     for(let i = 0 ; i<this.fileList.length; i++) {
       let chaine:string = this.fileList[i].name;
      let result = chaine.split('.')
-      if(result[1]=='jpg' || result[1]=='png' || result[1]=='jpeg'){
+      if(result[1]=='jpg' ||result[1]=='JPG' || result[1]=='png' || result[1]=='jpeg'){
     const reader = new FileReader();
     reader.readAsDataURL(this.fileList[i]);
     reader.onload = (_event) => { 
@@ -72,24 +69,18 @@ export class TypeCreditsComponent implements OnInit {
     }
       }
     }
-    if(this.fileList.length==3){
-      this.tmp = this.fileList[2].name
-      this.templa = this.fileList[1].name
-      this.pdf = this.fileList[0].name
-      for (let i=0; i<this.fileList.length;i++) {
-        this.creditServie.upload_file(this.fileList[i]).subscribe(
+   this.filename = this.fileList[0].name
+   
+        this.creditServie.upload_file(this.fileList[0]).subscribe(
      next => console.log(next)
     );
 
-    }
-    }
 
   }
-  getText() {
+  compare() {
 
-   this.text= ''
-    this.creditServie.getText(this.tmp,this.templa,this.pdf).subscribe(
-      next => {this.text = next; console.log(this.text);}
+    this.creditServie.compare(this.filename).subscribe(
+      images => {this.images = images; console.log(this.text);}
       );
   }
   delete () {

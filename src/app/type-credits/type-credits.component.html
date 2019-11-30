@@ -24,8 +24,7 @@
 <button (click)="delete()" >Delete File</button>
 <br>
 
-<button (click)="getText()"> get Words </button>
-<p *ngIf="text"> words : 
-
-  {{text.nom}}
-</p>
+<button (click)="compare()"> get images </button>
+<div *ngFor="let image of images ">
+  <img src="/assets/images/{{image}}">
+</div>
